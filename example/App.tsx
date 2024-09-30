@@ -1,20 +1,28 @@
-import { StyleSheet, Text, View } from 'react-native';
-
-import * as AndroidBarcodeScannerView from 'android-barcode-scanner-view';
+import { AndroidBarcodeScannerView } from "android-barcode-scanner-view"
+import { BarcodeScannedEventPayload } from "android-barcode-scanner-view/AndroidBarcodeScannerView.types"
+import { StyleSheet, Text } from "react-native"
 
 export default function App() {
+  const onBarcodeScanned = async ({ barcode }: BarcodeScannedEventPayload) => {
+    console.log(barcode)
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>{AndroidBarcodeScannerView.hello()}</Text>
-    </View>
-  );
+    <AndroidBarcodeScannerView
+      listening={true}
+      style={styles.container}
+      onBarcodeScanned={onBarcodeScanned}
+    >
+      <Text>Hello</Text>
+    </AndroidBarcodeScannerView>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-});
+})
