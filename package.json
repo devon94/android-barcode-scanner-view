@@ -1,5 +1,5 @@
 {
-  "name": "android-barcode-scanner-view",
+  "name": "@devon94/android-barcode-scanner-view",
   "version": "0.1.0",
   "description": "Barcode Scanning Listener View for Android",
   "main": "build/index.js",
