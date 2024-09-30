@@ -45,6 +45,7 @@ class AndroidBarcodeScannerView(context: Context, appContext: AppContext) : Expo
 
         event?.let {
             val pressedKey = it.unicodeChar.toChar()
+            if (pressedKey == '\u0000') return true
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 val barcode = barcodeBuilder.toString()
                 if (barcode.isNotEmpty()) {
@@ -52,7 +53,7 @@ class AndroidBarcodeScannerView(context: Context, appContext: AppContext) : Expo
                     barcodeBuilder = StringBuilder()
                     return true // Consume the event
                 } else {
-                    return super.onKeyDown(keyCode, event)
+                    return true // Let the event propagate
                 }
             } else {
                 barcodeBuilder.append(pressedKey)
@@ -60,6 +61,14 @@ class AndroidBarcodeScannerView(context: Context, appContext: AppContext) : Expo
         }
 
         return super.onKeyDown(keyCode, event)
+    }
+
+    private fun cleanBarcodeData(barcode: String): String {
+      return if (barcode.startsWith('\u0000')) {
+          barcode.trimStart('\u0000')
+      } else {
+          barcode
+      }
     }
 
     private fun emitBarcodeScannedEventAsync(barcode: String) {

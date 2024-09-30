@@ -1,10 +1,9 @@
-import { EventEmitter, requireNativeViewManager } from "expo-modules-core"
+import { requireNativeViewManager } from "expo-modules-core"
 import * as React from "react"
 
 import {
   AndroidBarcodeScannerViewProps,
   NativeAndroidBarcodeScannerViewProps,
-  InternalBarcodeScannedEventPayload,
   BarcodeScannedEventPayload,
 } from "./AndroidBarcodeScannerView.types"
 
@@ -26,7 +25,7 @@ export default function AndroidBarcodeScannerView(
   return (
     <NativeView
       {...otherProps}
-      style={style}
+      style={[{ display: "flex", flex: 1 }, style]}
       onBarcodeScanned={handleBarcodeScanned}
     >
       {children}
